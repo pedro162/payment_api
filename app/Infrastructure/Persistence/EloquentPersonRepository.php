@@ -2,16 +2,16 @@
 
 namespace App\Infrastructure\Persistence;
 
-use App\Domain\Task\Entities\Task;
-use App\Domain\Task\Repositories\TaskRepository;
-use App\Domain\Task\ValueObjects\TaskId;
-use App\Domain\Task\ValueObjects\TaskName;
-use App\Domain\Task\ValueObjects\TaskStatus;
+use App\Domain\Person\Entities\Person;
+use App\Domain\Person\Repositories\PersonRepositoryInterface;
+use App\Domain\Person\ValueObjects\PersonId;
+use App\Domain\Person\ValueObjects\PersonName;
+use App\Domain\Person\ValueObjects\PersonStatus;
 use Illuminate\Support\Facades\DB;
 
-class EloquentTaskRepository implements TaskRepository
+class EloquentPersonRepository implements PersonRepositoryInterface
 {
-    public function save(Task $task): ?Task
+    public function save(Person $task): ?Person
     {
         //Todo
         //Implement an object model instance and save or update within database, after that, return the object task implementation
@@ -25,14 +25,14 @@ class EloquentTaskRepository implements TaskRepository
 
         return null;
     }
-    public function findById(TaskId $id): ?Task
+    public function findById(PersonId $id): ?Person
     {
         $task = DB::table('task')->where('id', '=', (string)$id)->first();
         if ($task) {
-            return new Task(
-                new TaskId($task->id),
-                new TaskName($task->name),
-                new TaskStatus($task->status),
+            return new Person(
+                new PersonId($task->id),
+                new PersonName($task->name),
+                new PersonStatus($task->status),
             );
         }
         return null;

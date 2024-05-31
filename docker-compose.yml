@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: lista_de_compras
+    container_name: grocery_list_app
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,7 +9,7 @@ services:
       - 9000:80
       - 5173:5173
     volumes:
-      - .:/var/www/html/lista_de_compras
+      - .:/var/www/html/grocery_list_app
     #network_mode: "host"
     environment:
       - UID=${UID}

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Domain\Task\ValueObjects;
+namespace App\Domain\Person\ValueObjects;
 
-class TaskName
+class PersonName
 {
     private string $value;
 
     public function __construct(string $value)
     {
         if (!(isset($value) && strlen(trim($value)) > 0)) {
-            throw new \InvalidArgumentException("Task name cannot be empty");
+            throw new \InvalidArgumentException("Person name cannot be empty");
         }
         $this->value = $value;
     }

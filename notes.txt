@@ -1,0 +1,29 @@
+App lista de compras
+
+Cadastrar uma lista de compras;
+Adicionar itens, editar, remover;
+Os itens devem ter uma categoria;
+Os itens podem ter um preço;
+Os itens podem ter uma imagem;
+Cadastro de unidades de medida (Já deve vir cadastradas por padrão);
+Ter o cadastro das loja onde se compra os itens;
+
+A lista pode ser compartilhada entre os usuairos;
+Dar opção de definir a ordem de prioridade dos itens;
+Ao iniciar o chckout da lista, o usuario pode marcar ou desmarcar os itens que ejá foram confirmados;
+Ao inicar o checkout, inventariar as informações de itens, valor, autor, data, etc
+O sistema já deve vir com algumas informções básicas já cadastradas, como categoria
+Ter opção de compartilhar tanto a lista quanto os itens via whatsapp
+
+
+The app should register a new grocery list.;
+The app should register grocery list items.;
+The grocery list items should have a category, price (optional to fill), and image.;
+The app should register the unit of measure for grocery list items.;
+The app should register the store where the groceries should be bought.;
+The list should have the possibility to be shared with other users.;
+The app should allow the user to change the order of items.;
+When the user starts to make a checkout for the grocery items, this process should be able to be turned on or off.;
+The app should store the history of the operations in a database.;
+The app should have default categories list .;
+The app should have the option to share either the entire grocery list or just some items.;

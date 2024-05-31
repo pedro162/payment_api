@@ -34,33 +34,33 @@ RUN apt-get install -y npm
 RUN npm install -g vue
 
 # Defina o diretório de trabalho
-WORKDIR /var/www/html/lista_de_compras
+WORKDIR /var/www/html/grocery_list_app
 
 # Copie os arquivos do projeto Laravel para o contêiner
 COPY . .
 
 # Verifica se o arquivo composer.json existe, se não, copia um arquivo de exemplo
-COPY composer.json /var/www/html/lista_de_compras/composer.json
+COPY composer.json /var/www/html/grocery_list_app/composer.json
 
 # Instale as dependências do Composer
 RUN composer install --no-interaction || true
 
 # Definir permissões adequadas para o diretório
-RUN chown -R www-data:www-data /var/www/html/lista_de_compras
-RUN chmod -R 755 /var/www/html/lista_de_compras
+RUN chown -R www-data:www-data /var/www/html/grocery_list_app
+RUN chmod -R 755 /var/www/html/grocery_list_app
 
 # Configure o Apache para apontar diretamente para o diretório public do Laravel e escutar na porta 80
 RUN echo "<VirtualHost *:80>\n\
     ServerAdmin webmaster@localhost\n\
-    DocumentRoot /var/www/html/lista_de_compras/public\n\
-    <Directory /var/www/html/lista_de_compras/public>\n\
-        Options Indexes FollowSymLinks\n\
-        AllowOverride All\n\
-        Require all granted\n\
+    DocumentRoot /var/www/html/grocery_list_app/public\n\
+    <Directory /var/www/html/grocery_list_app/public>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
     </Directory>\n\
     ErrorLog \${APACHE_LOG_DIR}/error.log\n\
     CustomLog \${APACHE_LOG_DIR}/access.log combined\n\
-</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
+    </VirtualHost>" > /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite
 

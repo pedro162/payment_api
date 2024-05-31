@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Task\ValueObjects;
+namespace App\Domain\Person\ValueObjects;
 
-class TaskStatus
+class PersonStatus
 {
     private string $value;
 
