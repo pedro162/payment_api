@@ -3,6 +3,7 @@
 namespace App\Application\Handlers;
 
 use App\Application\Commands\CreatePersonCommand;
+use App\Application\Commands\InfoPersonCommand;
 use App\Domain\Person\Entities\Person;
 use App\Domain\Person\Repositories\PersonRepositoryInterface;
 use App\Domain\Person\ValueObjects\PersonDocument;
@@ -10,7 +11,7 @@ use App\Domain\Person\ValueObjects\PersonId;
 use App\Domain\Person\ValueObjects\PersonName;
 use App\Domain\Person\ValueObjects\PersonType;
 
-class CreatePersonHandler
+class InfoPersonHandler
 {
     private PersonRepositoryInterface $repository;
 
@@ -19,14 +20,11 @@ class CreatePersonHandler
         $this->repository = $repository;
     }
 
-    public function handler(CreatePersonCommand $command): ?Person
+    public function handler(InfoPersonCommand $command): ?Person
     {
         $person = new Person();
         $person->setId(new PersonId($command->getPersonId()));
-        $person->setName(new PersonName($command->getPersonName()));
-        $person->setDocument(new PersonDocument($command->getPersonDocument()));
-        $person->setType(new PersonType($command->getPersonType()));
 
-        return $this->repository->save($person);
+        return $this->repository->findById($person->getId());
     }
 }

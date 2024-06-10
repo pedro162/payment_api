@@ -4,7 +4,7 @@ namespace App\Application\Commands;
 
 use App\Application\Commands\BasePersonCommand;
 
-class CreatePersonCommand extends BasePersonCommand
+class InfoPersonCommand extends BasePersonCommand
 {
     public function __construct(string $personId = '', string $personName = '', string $personDocument = '', string $personType = '')
     {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Application\Handlers\CreatePersonHandler;
+use App\Application\Handlers\InfoPersonHandler;
 use App\Application\Services\PersonApplicationService;
 use App\Domain\Person\Repositories\PersonRepositoryInterface;
 use App\Infrastructure\Persistence\EloquentPersonRepository;
@@ -26,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(PersonApplicationService::class, function ($app) {
             return new PersonApplicationService(
-                $app->make(CreatePersonHandler::class)
+                $app->make(CreatePersonHandler::class),
+                $app->make(InfoPersonHandler::class),
             );
         });
     }
