@@ -9,6 +9,8 @@ use App\Domain\Person\Repositories\PersonRepositoryInterface;
 use App\Infrastructure\Persistence\EloquentPersonRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Laravel\Passport\Passport;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(InfoPersonHandler::class),
             );
         });
+
+        //Passport::ignoreRoutes();
     }
 
     /**
@@ -39,5 +43,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::pattern('id', '[0-9]+');
+
+        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
     }
 }
