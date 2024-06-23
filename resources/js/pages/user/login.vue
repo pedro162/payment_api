@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+//https://play.google.com/store/apps/details?id=br.com.ridsoftware.shoppinglist&hl=pt_BR
 export default {
   name: 'Login',
   data() {
