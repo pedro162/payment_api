@@ -7,32 +7,33 @@ use App\Application\Commands\InfoPersonCommand;
 use App\Application\Handlers\CreatePersonHandler;
 use App\Application\Handlers\InfoPersonHandler;
 use App\Domain\Person\Entities\Person;
+use App\Domain\Person\ValueObjects\PersonDocument;
 
 class PersonApplicationService
 {
     private CreatePersonHandler $createPersonHandler;
     private InfoPersonHandler $infoPersonHandler;
 
-    public function __construct(CreatePersonHandler $createPersonHandler, InfoPersonHandler $infoPersonHandler)
+    public function __construct(CreatePersonHandler $createPersonHandler)
     {
         $this->createPersonHandler = $createPersonHandler;
-        $this->infoPersonHandler = $infoPersonHandler;
     }
 
-    public function setInfoPersonHandler(InfoPersonHandler $infoPersonHandler): void
+    public function setInfoPersonHandler(InfoPersonHandler $infoPersonHandler): PersonApplicationService
     {
         $this->infoPersonHandler = $infoPersonHandler;
+        return $this;
     }
 
-    public function createPerson(string $personId = '', string $personName = '', string $personDocument = '', string $personType = ''): ?Person
+    public function createPerson(CreatePersonCommand $command): ?Person
     {
-        $command = new CreatePersonCommand($personId, $personName, $personDocument, $personType);
         return $this->createPersonHandler->handler($command);
     }
 
     public function findPersonById(string $personId)
     {
-        $command = new InfoPersonCommand($personId);
+        $command = new InfoPersonCommand();
+        $command->personId($personId);
         return $this->infoPersonHandler->handler($command);
     }
 }

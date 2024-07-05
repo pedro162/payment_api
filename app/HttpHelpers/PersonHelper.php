@@ -2,17 +2,17 @@
 
 namespace App\HttpHelpers;
 
-use App\Application\Commands\CreateProductCommand;
-use App\Application\Handlers\CreateProductHandler;
-use App\Application\Handlers\InfoProductHandler;
-use App\Application\Services\ProductApplicationService;
-use App\Domain\Product\ValueObjects\ProductId;
-use App\Infrastructure\Persistence\EloquentProductRepository;
-use App\Models\Product as ProductModel;
+use App\Application\Commands\CreatePersonCommand;
+use App\Application\Handlers\CreatePersonHandler;
+use App\Application\Handlers\InfoPersonHandler;
+use App\Application\Services\PersonApplicationService;
+use App\Domain\Person\ValueObjects\PersonId;
+use App\Infrastructure\Persistence\EloquentPersonRepository;
+use App\Models\Person as PersonModel;
 use Illuminate\Support\Facades\DB;
 
 
-class ProductHelper extends BaseHelper
+class PersonHelper extends BaseHelper
 {
 
     public function store(array $data)
@@ -21,16 +21,16 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $objHandler = new CreateProductHandler($objRepo);
-            $objProductHandler = new InfoProductHandler($objRepo);
-            $objService = new ProductApplicationService($objHandler, $objProductHandler);
+            $objRepo = new EloquentPersonRepository();
+            $objHandler = new CreatePersonHandler($objRepo);
+            $objPersonHandler = new InfoPersonHandler($objRepo);
+            $objService = new PersonApplicationService($objHandler, $objPersonHandler);
 
-            $command = (new CreateProductCommand())
-                ->productId(0)
-                ->productName($data['name']);
-            $domainProductObject = $objService->createProduct($command);
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            $command = (new CreatePersonCommand())
+                ->personId(0)
+                ->personName($data['name']);
+            $domainPersonObject = $objService->createPerson($command);
+            $response = PersonModel::where('id', '=', (string) $domainPersonObject->getId());
 
             DB::commit();
             $this->setHttpResponseData($response);
@@ -59,7 +59,7 @@ class ProductHelper extends BaseHelper
     {
         try {
             DB::beginTransaction();
-            $response = ProductModel::orderBy('id', 'DESC')->get();
+            $response = PersonModel::all();
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
@@ -91,9 +91,9 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $domainProductObject = $objRepo->findById(new ProductId($id));
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            $objRepo = new EloquentPersonRepository();
+            $domainPersonObject = $objRepo->findById(new PersonId($id));
+            $response = PersonModel::where('id', '=', (string) $domainPersonObject->getId());
 
             DB::commit();
 
@@ -131,16 +131,16 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $objHandler = new CreateProductHandler($objRepo);
-            $objProductHandler = new InfoProductHandler($objRepo);
-            $objService = new ProductApplicationService($objHandler, $objProductHandler);
+            $objRepo = new EloquentPersonRepository();
+            $objHandler = new CreatePersonHandler($objRepo);
+            $objPersonHandler = new InfoPersonHandler($objRepo);
+            $objService = new PersonApplicationService($objHandler, $objPersonHandler);
 
-            $command = (new CreateProductCommand())
-                ->productId(0)
-                ->productName($data['name']);
-            $domainProductObject = $objService->createProduct($command);
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            $command = (new CreatePersonCommand())
+                ->personId(0)
+                ->personName($data['name']);
+            $domainPersonObject = $objService->createPerson($command);
+            $response = PersonModel::where('id', '=', (string) $domainPersonObject->getId());
 
             DB::commit();
             $this->setHttpResponseData($response);
@@ -173,10 +173,10 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $domainProductObject = $objRepo->findById(new ProductId($id));
+            $objRepo = new EloquentPersonRepository();
+            $domainPersonObject = $objRepo->findById(new PersonId($id));
             //TODO
-            //$response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            //$response = PersonModel::where('id', '=', (string) $domainPersonObject->getId());
 
             DB::commit();
             $msg   = 'Bank transaction removed successfully';

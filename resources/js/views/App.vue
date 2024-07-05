@@ -1,14 +1,14 @@
 
 <template>
     <div class="flex flex-col h-screen">
-        <Header title="Product list" :toggleMenuLateral="toggle" :isExpandedMenuLateral="isExpanded" />
+        <Header :title="title ? title : ''" :toggleMenuLateral="toggle" :isExpandedMenuLateral="isExpanded" />
         <div class="flex flex-1" >  
           <div id :class="['fixed inset-y-0 left-0 bg-gray-800 text-white transition-width duration-300 z-30', { 'w-60': isExpanded, 'w-0 md:w-16': !isExpanded }]" @mouseenter="expand" @mouseleave="collapse">
               <ul v-if="isExpanded || !isMobile" class="space-y-4 p-4 mt-12">
                   <li><router-link @click="toggle" to="/" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-home"></i> Home</router-link></li>
-                  <li><router-link @click="toggle" to="/lista-de-compras" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-list-alt"></i> Grocery list</router-link></li>
+                  <li><router-link @click="toggle" to="/groceries" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-list-alt"></i> Grocery list</router-link></li>
                   <li><router-link @click="toggle" to="/products" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-shopping-basket"></i> Products</router-link></li>
-                  <li><router-link @click="toggle" to="/products" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-history"></i> Purchase history</router-link></li>
+                  <li><router-link @click="toggle" to="/purchases" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-history"></i> Purchase history</router-link></li>
                   <li><router-link @click="toggle" to="/configuracoes" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-cog"></i> Settings</router-link></li>
                   <li><span @click="()=>{toggle();logout();}" class="block p-2 hover:bg-gray-700" ><i class="mr-2 text-2xl fa fa-sign-out-alt"></i> Exit</span></li>
               </ul>
@@ -20,7 +20,7 @@
               <Breadcrumb :items="breadcrumbItems" />
             </div> 
             
-            <router-view :setBreadcrumb="setBreadcrumb" ></router-view>
+            <router-view :setBreadcrumb="setBreadcrumb" :setTitle="setTitle" ></router-view>
           </div>
       </div>
     </div>
@@ -44,6 +44,7 @@ export default {
       isLogged: false,
       isMobile: window.innerWidth < 768,
       breadcrumbItems:[],
+      title:''
     };
   },
   methods: {
@@ -68,6 +69,9 @@ export default {
     },
     setBreadcrumb(items){
       this.breadcrumbItems = items;
+    },
+    setTitle(title){
+      this.title = title;
     },
     logout(){
       this.$router.push({ name: 'Login' });

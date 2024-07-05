@@ -5,7 +5,8 @@ import { createApp } from 'vue';
 import App from './views/App.vue';
 import {createRouter, createWebHistory } from 'vue-router'
 import Welcome from './components/Welcome.vue';
-import Products from './components/Products.vue';
+import Products from './pages/products/products.vue';
+import Groceries from './pages/groceries/groceries.vue';
 import LoginPage from './pages/user/login.vue';
 import NavItems from './layouts/components/NavItems.vue';
 //const app = createApp({});
@@ -14,7 +15,7 @@ import NavItems from './layouts/components/NavItems.vue';
 //https://github.com/themeselection/materio-vuetify-vuejs-laravel-admin-template-free/blob/main/javascript-version/resources/js/plugins/router/routes.js
 
 const routes = [
-    {path:'/products', component:Products, name:'Home', props:{
+    {path:'/products', component:Products, name:'Products', props:{
         breadcrumb:[
             {name:'Home', link:'/'},
             {name:'Products', link:'/product'}
@@ -29,6 +30,24 @@ const routes = [
         breadcrumb:[
             {name:'Home', link:'/'},
             {name:'Home', link:'/home'}
+        ]
+    }},
+    {path:'/groceries', component:Groceries, name:'Groceries', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Groceries', link:'/groceries'}
+        ]
+    }},
+    {path:'/purchases', component:Groceries, name:'Purchase history', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Groceries', link:'/purchases'}
+        ]
+    }},
+    {path:'/settings', component:Groceries, name:'Settings', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Settings', link:'/settings'}
         ]
     }},
 ]

@@ -21,6 +21,7 @@ class CreatePersonHandler
 
     public function handler(CreatePersonCommand $command): ?Person
     {
+        //echo 'Person id: ' . $command->getPersonId() . '<br/>';
         $person = new Person();
         $person->setId(new PersonId($command->getPersonId()));
         $person->setName(new PersonName($command->getPersonName()));

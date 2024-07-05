@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="!isMobile" class="overflow-x-out">
+    <div class="">
+        <div v-if="!isMobile" class="overflow-x-out shadow rounded-lg border ">
             <table class="min-w-full bg-white" >
                 <thead class="bg-gray-800 text-white">
                     <tr>
@@ -40,6 +40,7 @@
 </template>
 
 <script >
+
 export default{
     name:'Report',
     props:{
@@ -56,6 +57,9 @@ export default{
             required:true
         }
     },
+    components:{
+        
+    },
     data(){
         return{
             isMobile: window.innerWidth < 768
@@ -67,9 +71,7 @@ export default{
         },
         filterInfoMobile(item){
             let newObj = {}
-            console.log('this.mobile_fields: '+this.mobile_fields)
             for(let prop in item){
-               console.log('prop: '+prop)
                 if((this.mobile_fields && this.mobile_fields.indexOf(prop) > -1)){
                     newObj[prop]=item[prop]
                 }

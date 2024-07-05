@@ -9,6 +9,27 @@ abstract class BasePersonCommand
     protected string $personDocument;
     protected string $personType;
 
+    public function personId(string $personId): BasePersonCommand
+    {
+        $this->personId = $personId;
+        return $this;
+    }
+    public function personName(string $personName): BasePersonCommand
+    {
+        $this->personName = $personName;
+        return $this;
+    }
+    public function personDocument(string $personDocument): BasePersonCommand
+    {
+        $this->personDocument = $personDocument;
+        return $this;
+    }
+    public function personType(string $personType): BasePersonCommand
+    {
+        $this->personType = $personType;
+        return $this;
+    }
+
     public function getPersonId(): ?string
     {
         return $this->personId;

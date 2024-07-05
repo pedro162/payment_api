@@ -20,6 +20,7 @@ class EloquentPersonRepository implements PersonRepositoryInterface
         //Implement an object model instance and save or update within database, after that, return the object person implementation
         $personId = (string) $person->getId();
         $personId = (int) $personId;
+        //echo 'Person id: ' . $personId . '<br/>';
         if ($personId > 0) {
             //update
             $person = ModelPerson::where('id', '=', $personId)->first();

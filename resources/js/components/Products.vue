@@ -1,12 +1,14 @@
 
 <template>
   <div class="products">
+
+    <Filter :filtersConfig="reportFilters" @filter="applyFilters" />
     <Report :items="data_products.products" :mobile_fields="data_products.mobile_fields" :headers="data_products.headers" >
        <template #edit="{ item }">
-          <button @click="editProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Edit</button>
+          <button @click="editProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"><i class="fas fa-edit text-1xl"></i> Edit</button>
         </template>
         <template #delete="{ item }">
-          <button @click="deleteProduct(item)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Delete</button>
+          <button @click="deleteProduct(item)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-trash text-1xl"></i>  Delete</button>
         </template>
     </Report>
   </div>
@@ -14,7 +16,7 @@
 
 <script>
 import Report from "./Report.vue"
-
+import Filter from './Filter.vue';
 export default {
   name: 'Products',
   props:{
@@ -22,7 +24,8 @@ export default {
     breadcrumb:Array
   },
   components:{
-    Report
+    Report,
+    Filter,
   },
   data(){
     return({
@@ -32,7 +35,13 @@ export default {
           
         ],
         mobile_fields:['ID', 'Name', "Category", "Brand"]
-      }
+      },
+      reportFilters:{
+        name: { type: 'text', label: 'Filter by Name' },
+        category: { type: 'select', label: 'Filter by Category', options: [{value:'1', label:'Electronics'}, {value:'2', label:'Clothing'}, {value:'3', label:'Books'}] },
+        price: { type: 'text', label: 'Filter by Price' },
+        date: { type: 'text', label: 'Filter by Date' },
+      },
     })
   },
   methods:{
@@ -64,6 +73,9 @@ export default {
         })        
       }
       this.data_products.products=temp_data;
+    },
+    applyFilters(filters){
+      this.filters = filters;
     }
   },
   created(){

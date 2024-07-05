@@ -9,12 +9,6 @@ use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
-    private PersonApplicationService $taskApplicationService;
-
-    public function __construct(PersonApplicationService $taskApplicationService)
-    {
-        $this->taskApplicationService = $taskApplicationService;
-    }
     /**
      * Display a listing of the resource.
      */
@@ -29,8 +23,8 @@ class PersonController extends Controller
     public function create()
     {
         $objRepo = new EloquentPersonRepository();
-        $objHendler = new CreatePersonHandler($objRepo);
-        $objSerice = new PersonApplicationService($objHendler);
+        $objHandler = new CreatePersonHandler($objRepo);
+        $objSerice = new PersonApplicationService($objHandler);
     }
 
     /**
