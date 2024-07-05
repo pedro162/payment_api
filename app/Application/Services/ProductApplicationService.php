@@ -24,9 +24,8 @@ class ProductApplicationService
         $this->infoProductHandler = $infoProductHandler;
     }
 
-    public function createProduct(string $personId = '', string $personName = ''): ?Product
+    public function createProduct(CreateProductCommand $command): ?Product
     {
-        $command = new CreateProductCommand($personId, $personName);
         return $this->createProductHandler->handler($command);
     }
 

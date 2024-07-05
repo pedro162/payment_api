@@ -14,9 +14,23 @@ import NavItems from './layouts/components/NavItems.vue';
 //https://github.com/themeselection/materio-vuetify-vuejs-laravel-admin-template-free/blob/main/javascript-version/resources/js/plugins/router/routes.js
 
 const routes = [
-    {path:'/products', component:Products, name:'Home'},
-    {path:'/login', component:LoginPage, name:'Login'},
-    {path:'/home', component:Welcome, name:'Welcome'}
+    {path:'/products', component:Products, name:'Home', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Products', link:'/product'}
+        ]
+    }},
+    {path:'/login', component:LoginPage, name:'Login', props:{
+        breadcrumb:[
+            
+        ]
+    }},
+    {path:'/home', component:Welcome, name:'Welcome', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Home', link:'/home'}
+        ]
+    }},
 ]
 
 const router = createRouter({

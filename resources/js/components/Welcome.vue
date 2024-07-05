@@ -10,6 +10,13 @@
 <script>
 export default {
   name: 'Welcome',
+  props:{
+    setBreadcrumb:Function,
+    breadcrumb:Array
+  },
+  created(){
+    this.setBreadcrumb(this.breadcrumb)
+  }
 };
 </script>
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Application\Commands\CreateProductCommand;
 use App\Application\Handlers\CreateProductHandler;
 use App\Application\Handlers\InfoProductHandler;
 use App\Application\Services\ProductApplicationService;
@@ -23,19 +24,10 @@ class ProductApplicationServiceTest extends TestCase
         $this->testProductApplicationServiceBootstrap();
     }
 
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     public function testCreateProductService()
     {
-        $response = $this->productApplicationService->createProduct(0, 'Test product');
+        $command = new CreateProductCommand(0, 'Test product');
+        $response = $this->productApplicationService->createProduct($command);
         $idProduct = (string) $response->getId();
         $idProduct = (int) $idProduct;
         $this->assertGreaterThan(0, $idProduct, "It was no possíble to create the product");
@@ -43,8 +35,9 @@ class ProductApplicationServiceTest extends TestCase
 
     public function testCreateProductWithInvalidNameService()
     {
+        $command = new CreateProductCommand(0, '');
         $this->expectException(\InvalidArgumentException::class);
-        $response = $this->productApplicationService->createProduct(0, '');
+        $response = $this->productApplicationService->createProduct($command);
         $idProduct = (string) $response->getId();
         $idProduct = (int) $idProduct;
     }
@@ -52,20 +45,23 @@ class ProductApplicationServiceTest extends TestCase
     public function testCreateroductWithInvalidNameService()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $response = $this->productApplicationService->createProduct(0, '');
+        $command = new CreateProductCommand(0, '');
+        $response = $this->productApplicationService->createProduct($command);
         $idProduct = (string) $response->getId();
         $idProduct = (int) $idProduct;
     }
 
     public function testCheckTheInstanceTypeReturnedByCreateroductServiceMethod()
     {
-        $response = $this->productApplicationService->createProduct(0, 'Test product');
+        $command = new CreateProductCommand(0, 'Test product');
+        $response = $this->productApplicationService->createProduct($command);
         $this->assertInstanceOf(Product::class, $response, "The instance type returned by the Service's createProduct method is not an instance of 'App\Domain\Product\Entities\Product'");
     }
 
     public function testTryToCreateAndLoadASpecificProduct()
     {
-        $response = $this->productApplicationService->createProduct(0, 'Test product');
+        $command = new CreateProductCommand(0, 'Test product');
+        $response = $this->productApplicationService->createProduct($command);
         $idProduct = (string) $response->getId();
         $idProduct = (int) $idProduct;
         $entityProductObject = $this->productApplicationService->findProductById($idProduct);
