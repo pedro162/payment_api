@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HttpHelpers\GroceryListHelper;
 use Illuminate\Http\Request;
 
 class GroceryListController extends Controller
@@ -11,15 +12,10 @@ class GroceryListController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $groceryListHelper = new GroceryListHelper();
+        $response = $groceryListHelper->index();
+        $httpResponseCode = $groceryListHelper->getHttpResponseCode();
+        return response()->json($response, $httpResponseCode);
     }
 
     /**
@@ -27,7 +23,10 @@ class GroceryListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $groceryListHelper = new GroceryListHelper();
+        $response = $groceryListHelper->store($request->all());
+        $httpResponseCode = $groceryListHelper->getHttpResponseCode();
+        return response()->json($response, $httpResponseCode);
     }
 
     /**
@@ -35,15 +34,10 @@ class GroceryListController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $groceryListHelper = new GroceryListHelper();
+        $response = $groceryListHelper->show($id);
+        $httpResponseCode = $groceryListHelper->getHttpResponseCode();
+        return response()->json($response, $httpResponseCode);
     }
 
     /**
@@ -51,7 +45,10 @@ class GroceryListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $groceryListHelper = new GroceryListHelper();
+        $response = $groceryListHelper->update($id, $request->all());
+        $httpResponseCode = $groceryListHelper->getHttpResponseCode();
+        return response()->json($response, $httpResponseCode);
     }
 
     /**
@@ -59,6 +56,9 @@ class GroceryListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $groceryListHelper = new GroceryListHelper();
+        $response = $groceryListHelper->destroy($id);
+        $httpResponseCode = $groceryListHelper->getHttpResponseCode();
+        return response()->json($response, $httpResponseCode);
     }
 }

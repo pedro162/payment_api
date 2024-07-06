@@ -7,6 +7,7 @@ import {createRouter, createWebHistory } from 'vue-router'
 import Welcome from './components/Welcome.vue';
 import Products from './pages/products/products.vue';
 import Groceries from './pages/groceries/groceries.vue';
+import Purchases from './pages/purchases/purchases.vue';
 import LoginPage from './pages/user/login.vue';
 import NavItems from './layouts/components/NavItems.vue';
 //const app = createApp({});
@@ -26,10 +27,9 @@ const routes = [
             
         ]
     }},
-    {path:'/home', component:Welcome, name:'Welcome', props:{
+    {path:'/', component:Welcome, name:'Welcome', props:{
         breadcrumb:[
-            {name:'Home', link:'/'},
-            {name:'Home', link:'/home'}
+            {name:'Home', link:'/'}
         ]
     }},
     {path:'/groceries', component:Groceries, name:'Groceries', props:{
@@ -38,10 +38,10 @@ const routes = [
             {name:'Groceries', link:'/groceries'}
         ]
     }},
-    {path:'/purchases', component:Groceries, name:'Purchase history', props:{
+    {path:'/purchases', component:Purchases, name:'Purchase history', props:{
         breadcrumb:[
             {name:'Home', link:'/'},
-            {name:'Groceries', link:'/purchases'}
+            {name:'Purchase history', link:'/purchases'}
         ]
     }},
     {path:'/settings', component:Groceries, name:'Settings', props:{

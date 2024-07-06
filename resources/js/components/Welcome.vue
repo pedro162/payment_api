@@ -1,9 +1,9 @@
 
 <template>
   <div class="welcome">
-    <h1>Bem-vindo ao meu site js</h1>
-    <p>Este é um exemplo simples de uma tela de boas-vindas usando Vue.js no Laravel.</p>
-     <router-link to="/products">Create New Post</router-link>
+    <h1>Welcome to my grocery list app</h1>
+    <p>This is just a simple example using Vue.js and Laravel.</p>
+     <router-link to="/products">Product list</router-link>
   </div>
 </template>
 
