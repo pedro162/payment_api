@@ -36,6 +36,20 @@
                 Apply
             </button>
         </div>
+
+        <hr v-if="filterVisible" class="bg-gray-300 my-4 border-none h-0.5" />
+        <div v-if="filterVisible" class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <button
+                v-for="(button, key) in actions" :key="key" 
+
+                @click="button.click"
+                :type="button.type"
+                :placeholder="button.label"
+                :class="button.class"
+            >
+            <i :class="button.icon"></i>  {{button.label}}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -44,6 +58,10 @@ export default {
     name:'Filter',
     props:{
         filtersConfig:{
+            type:Object,
+            required:true,
+        },
+        actions:{
             type:Object,
             required:true,
         }

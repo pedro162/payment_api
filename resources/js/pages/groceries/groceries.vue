@@ -48,6 +48,21 @@
           date: { type: 'text', label: 'Filter by Date' },
         },
         isLoading:false,
+        request:{
+          urlLoadData:'/api/products',
+          current_page:null,
+          first_page_url:null,
+          from:null,
+          last_page:null,
+          last_page_url:null,
+          links:null,
+          next_page_url:null,
+          path:null,
+          per_page:null,
+          to:null,
+          total:null,
+          path:null,
+        },
       })
     },
     methods:{
@@ -62,7 +77,7 @@
 
             this.isLoading = true;
 
-            let url = "/api/products"
+            let url = this.request.urlLoadData;
             let response = await fetch(url, {
               method:'GET',
               headers:{
@@ -72,7 +87,22 @@
             })
       
             response = await response.json()
-            let data = response?.data
+            
+            let data = response?.data?.data;
+            
+            this.request.current_page = response?.data?.current_page;
+            this.request.first_page_url = response?.data?.first_page_url;
+            this.request.from = response?.data?.from;
+            this.request.last_page = response?.data?.last_page;
+            this.request.last_page_url = response?.data?.last_page_url;
+            this.request.links = response?.data?.links;
+            this.request.next_page_url = response?.data?.next_page_url;
+            this.request.path = response?.data?.path;
+            this.request.per_page = response?.data?.per_page;
+            this.request.to = response?.data?.to;
+            this.request.total = response?.data?.total;
+            this.request.path = response?.data?.path;
+
             let temp_data = []
             if(data){
               data.forEach((item, index, arr)=>{

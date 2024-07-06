@@ -59,7 +59,7 @@ class ProductHelper extends BaseHelper
     {
         try {
             DB::beginTransaction();
-            $response = ProductModel::orderBy('id', 'DESC')->get();
+            $response = ProductModel::orderBy('id', 'DESC')->paginate(10);
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
