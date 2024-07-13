@@ -40,7 +40,8 @@ export default {
             },
             isLoading:false,
             request:{
-                urlLoadData:'/api/groceries'
+                urlLoadData:'/api/groceries',
+                grocery_id:null
             }
         })
     },
@@ -76,6 +77,7 @@ export default {
         },
     },
     created(){
+        this.groceryId = this.$route.params.id;
         this.setBreadcrumb(this.breadcrumb)
         this.setTitle('New grocery list')
     }

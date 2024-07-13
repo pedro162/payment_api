@@ -47,7 +47,7 @@ const routes = [
             {name:'Create', link:'/groceries/create'},
         ]
     }},
-    {path:'/groceries/edit/:id', component:GroceryCreate, name:'EditGrocery', props:{
+    {path:'/groceries/edit/:id', component:GroceryCreate, name:'GroceriesEdit', props:{
         breadcrumb:[
             {name:'Home', link:'/'},
             {name:'Groceries', link:'/groceries'},

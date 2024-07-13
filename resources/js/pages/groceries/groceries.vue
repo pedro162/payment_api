@@ -53,7 +53,7 @@
         },
         buttonActions:[
           {click:()=>{this.createItem()},type:'button',label:'Add',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-plus'},
-          {click:()=>alert('Export report'),type:'button',label:'Export',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-file-export'},
+          {click:()=>{alert('Export report')},type:'button',label:'Export',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-file-export'},
 
         ],
         isLoading:false,
@@ -80,10 +80,13 @@
         this.$router.push({name:'CreateGrocery'})
       },
       editProduct(product) {
+        console.log(product)
+        //alert('aqui')
         //this.$router.push({ name: 'Home' });
-        let url = '/groceries/edit/'+product;
-        this.$router.push({name:'EditGrocery', id:product})
+        //let url = '/groceries/edit/'+product.id;
+        this.$router.push({name:'GroceriesEdit', params:{id:product.ID}})
         //console.log('Edit product', product);
+        //alert('aqui')
       },
       deleteProduct(product) {
         console.log('Delete product', product);
