@@ -20,9 +20,9 @@ class InfoGroceryListHandler
 
     public function handler(CreateGroceryListCommand $command): ?GroceryList
     {
-        $person = new GroceryList();
-        $person->setId(new GroceryListId($command->getGroceryListId()));
+        $grocery = new GroceryList();
+        $grocery->setId(new GroceryListId($command->getGroceryListId()));
 
-        return $this->repository->findById($person->getId());
+        return $this->repository->findById($grocery->getId());
     }
 }

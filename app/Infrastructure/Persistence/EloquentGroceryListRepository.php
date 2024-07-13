@@ -41,7 +41,7 @@ class EloquentGroceryListRepository implements GroceryListRepositoryInterface
     }
     public function findById(GroceryListId $id): ?GroceryList
     {
-        $groceryList = DB::table('groceryLists')->where('id', '=', (string)$id)->first();
+        $groceryList = DB::table('grocery_lists')->where('id', '=', (string)$id)->first();
         if ($groceryList) {
             $objGroceryList = new GroceryList();
             $objGroceryList->setId(new GroceryListId($groceryList->id));

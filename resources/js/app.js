@@ -7,6 +7,8 @@ import {createRouter, createWebHistory } from 'vue-router'
 import Welcome from './components/Welcome.vue';
 import Products from './pages/products/products.vue';
 import Groceries from './pages/groceries/groceries.vue';
+import GroceryCreate from './pages/groceries/create.vue';
+import GroceryItemCreate from './pages/groceries_items/create.vue';
 import Purchases from './pages/purchases/purchases.vue';
 import LoginPage from './pages/user/login.vue';
 import NavItems from './layouts/components/NavItems.vue';
@@ -36,6 +38,27 @@ const routes = [
         breadcrumb:[
             {name:'Home', link:'/'},
             {name:'Groceries', link:'/groceries'}
+        ]
+    }},//GroceryItemCreate
+    {path:'/groceries/create', component:GroceryCreate, name:'CreateGrocery', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Groceries', link:'/groceries'},
+            {name:'Create', link:'/groceries/create'},
+        ]
+    }},
+    {path:'/groceries/edit/:id', component:GroceryCreate, name:'EditGrocery', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Groceries', link:'/groceries'},
+            {name:'Edit', link:'/groceries/edit/:id'}
+        ]
+    }},
+    {path:'/groceries/item/create/:id', component:GroceryItemCreate, name:'GroceryItemCreate', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Groceries', link:'/groceries'},
+            {name:'ADD item', link:'/groceries/item/create/:id'}
         ]
     }},
     {path:'/purchases', component:Purchases, name:'Purchase history', props:{

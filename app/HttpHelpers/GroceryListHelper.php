@@ -9,6 +9,7 @@ use App\Application\Services\GroceryListApplicationService;
 use App\Domain\GroceryList\ValueObjects\GroceryListId;
 use App\Infrastructure\Persistence\EloquentGroceryListRepository;
 use App\Models\GroceryList as GroceryListModel;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,8 +31,8 @@ class GroceryListHelper extends BaseHelper
                 ->groceryListId(0)
                 ->groceryListName($data['name']);
             $domainGroceryListObject = $objService->createGroceryList($command);
-            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId());
-
+            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId())->first();
+            //throw new Exception('test:' . $response->id);
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
