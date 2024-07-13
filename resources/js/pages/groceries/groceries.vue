@@ -8,6 +8,9 @@
           <template #edit="{item }">
             <button @click="editProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"><i class="fas fa-edit text-1xl"></i> Edit</button>
           </template>
+          <template #add_product="{item }">
+            <button @click="addProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-plus text-1xl"></i> Itens</button>
+          </template>
           <template #delete="{item}">
             <button @click="deleteProduct(item)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-trash text-1xl"></i>  Delete</button>
           </template>
@@ -88,6 +91,9 @@
         //console.log('Edit product', product);
         //alert('aqui')
       },
+      addProduct(product) {
+        this.$router.push({name:'GroceryItemCreate', params:{id:product.ID}})
+      },
       deleteProduct(product) {
         console.log('Delete product', product);
       },
@@ -129,7 +135,7 @@
                   created_at,
                  } = item
                 //'ID', 'Name', "Total Gross", "Discount", "Total Net"
-                temp_data.push({ID:id, Name:name, "Total Gross":total_gros_price, Discount:total_discount_amount, "Total Net":total_net_price, actions: [{ name: 'edit' }, { name: 'delete' }]})
+                temp_data.push({ID:id, Name:name, "Total Gross":total_gros_price, Discount:total_discount_amount, "Total Net":total_net_price, actions: [{ name: 'edit' }, { name: 'add_product' }, { name: 'delete' }]})
               })        
             }
             this.data_products.products=temp_data;

@@ -94,7 +94,7 @@ class GroceryListHelper extends BaseHelper
 
             $objRepo = new EloquentGroceryListRepository();
             $domainGroceryListObject = $objRepo->findById(new GroceryListId($id));
-            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId());
+            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId())->first();
 
             DB::commit();
 
@@ -135,13 +135,14 @@ class GroceryListHelper extends BaseHelper
             $objRepo = new EloquentGroceryListRepository();
             $objHandler = new CreateGroceryListHandler($objRepo);
             $objGroceryListHandler = new InfoGroceryListHandler($objRepo);
-            $objService = new GroceryListApplicationService($objHandler, $objGroceryListHandler);
+            $objService = new GroceryListApplicationService($objHandler);
+            $objService->setInfoGroceryListHandler($objGroceryListHandler);
 
             $command = (new CreateGroceryListCommand())
-                ->groceryListId(0)
+                ->groceryListId($id)
                 ->groceryListName($data['name']);
             $domainGroceryListObject = $objService->createGroceryList($command);
-            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId());
+            $response = GroceryListModel::where('id', '=', (string) $domainGroceryListObject->getId())->first();
 
             DB::commit();
             $this->setHttpResponseData($response);

@@ -19,18 +19,22 @@ class EloquentGroceryListRepository implements GroceryListRepositoryInterface
         $groceryListId = (int) $groceryListId;
         if ($groceryListId > 0) {
             //update
-            $groceryList = ModelGroceryList::where('id', '=', $groceryListId)->first();
-            $groceryList->updated([
-                'name' => $groceryList->getName(),
+            $groceryListModel = ModelGroceryList::where('id', '=', $groceryListId)->first();
+            if(! $groceryListModel){
+                throw new \Exception("The grocery list of code nº {$groceryListId} was not founded.");
+            }
+            $groceryListModel->update([
+                'name' => (string)$groceryList->getName(),
                 //'users_create_id'
                 //'users_update_id'   
             ]);
+            
 
-            $result = $groceryList;
+            $result = $groceryListModel;
         } else {
             //create
             $result = ModelGroceryList::create([
-                'name' => $groceryList->getName(),
+                'name' => (string)$groceryList->getName(),
                 //'users_create_id'
                 //'users_update_id'   
             ]);
