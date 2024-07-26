@@ -1,37 +1,34 @@
 
 <template>
-    <div class="groceries">
+    <div class="brands">
   
-      <Filter :filtersConfig="reportFilters"  :actions="buttonActions"  @filter="applyFilters" />
+      <Filter :filtersConfig="reportFilters" :actions="buttonActions" @filter="applyFilters" />
       <Spinner v-if="isLoading" />
-      <Report v-if="!isLoading" :items="data_products.products" :mobile_fields="data_products.mobile_fields" :headers="data_products.headers" >
-          <template #edit="{item }">
-            <button @click="editProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"><i class="fas fa-edit text-1xl"></i> Edit</button>
+      <Report v-if="!isLoading" :items="data_brands.brands" :mobile_fields="data_brands.mobile_fields" :headers="data_brands.headers" >
+         <template #edit="{item }">
+            <button @click="editBrand(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"><i class="fas fa-edit text-1xl"></i> Edit</button>
           </template>
-          <template #add_product="{item }">
-            <button @click="addProduct(item)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-plus text-1xl"></i> Itens</button>
-          </template>
-          <template #delete="{item}">
-            <button @click="deleteProduct(item)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-trash text-1xl"></i>  Delete</button>
+          <template #delete="{ item }">
+            <button @click="deleteBrand(item)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"><i class="fas fa-trash text-1xl"></i>  Delete</button>
           </template>
       </Report>
-      <Pagination v-if="!isLoading" :pagination="request" @page-change="handlePageChange"/>
+
+      <Pagination v-if="!isLoading" :pagination="request" @page-change="handlePageChange" />
     </div>
   </template>
   
   <script>
-
   import Report from "../../components/Report.vue"
   import Filter from '../../components/Filter.vue';
   import Spinner from "../../components/Spinner.vue";
   import Pagination from "../../components/Pagination.vue";
 
   export default {
-    name: 'Groceries',
+    name: 'Brands',
     props:{
       setBreadcrumb:Function,
-      breadcrumb:Array,
       setTitle:Function,
+      breadcrumb:Array,
     },
     components:{
       Report,
@@ -41,27 +38,26 @@
     },
     data(){
       return({
-        data_products:{
-          headers: ['ID', 'Name', "Total Gross", "Discount", "Total Net"],
-          products: [
+        data_brands:{
+          headers: ['ID', 'Name'],
+          brands: [
             
           ],
-          mobile_fields:['ID', 'Name', "Total Gross", "Discount", "Total Net"]
+          mobile_fields:['ID', 'Name']
         },
         reportFilters:{
           name: { type: 'text', label: 'Filter by Name' },
           category: { type: 'select', label: 'Filter by Category', options: [{value:'1', label:'Electronics'}, {value:'2', label:'Clothing'}, {value:'3', label:'Books'}] },
-          price: { type: 'text', label: 'Filter by Price' },
-          date: { type: 'text', label: 'Filter by Date' },
+          
         },
         buttonActions:[
-          {click:()=>{this.createItem()},type:'button',label:'Add',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-plus'},
-          {click:()=>{alert('Export report')},type:'button',label:'Export',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-file-export'},
+          {click:()=>this.crateBrand(),type:'button',label:'Add',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-plus'},
+          {click:()=>alert('Export report'),type:'button',label:'Export',class:'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded',icon:'fas fa-file-export'},
 
         ],
         isLoading:false,
         request:{
-          urlLoadData:'/api/groceries',
+          urlLoadData:'/api/brands',
           current_page:null,
           first_page_url:null,
           from:null,
@@ -75,23 +71,21 @@
           total:null,
           path:null,
         },
+        
       })
     },
     methods:{
-      createItem(){
-        let url = '/groceries/create';
-        this.$router.push({name:'CreateGrocery'})
+      crateBrand(){
+        //this.$router.push({name:'CreateGrocery'})
+        this.$router.push({name:'BrandCreate', params:{}})
       },
-      editProduct(product) {
-        this.$router.push({name:'GroceriesEdit', params:{id:product.ID}})
+      editBrand(product) {        
+        this.$router.push({name:'BrandEdit', params:{id:product.ID}})
       },
-      addProduct(product) {
-        this.$router.push({name:'GroceryItemCreate', params:{id:product.ID}})
-      },
-      deleteProduct(product) {
+      deleteBrand(product) {
         console.log('Delete product', product);
       },
-      async loadProductData(){
+      async loadBrandData(){
         try{
 
             this.isLoading = true;
@@ -106,9 +100,8 @@
             })
       
             response = await response.json()
-            
             let data = response?.data?.data;
-            
+            //current_page
             this.request.current_page = response?.data?.current_page;
             this.request.first_page_url = response?.data?.first_page_url;
             this.request.from = response?.data?.from;
@@ -125,14 +118,11 @@
             let temp_data = []
             if(data){
               data.forEach((item, index, arr)=>{
-                let {id, name, total_gros_price, total_discount_amount,total_net_price,
-                  created_at,
-                 } = item
-                //'ID', 'Name', "Total Gross", "Discount", "Total Net"
-                temp_data.push({ID:id, Name:name, "Total Gross":total_gros_price, Discount:total_discount_amount, "Total Net":total_net_price, actions: [{ name: 'edit' }, { name: 'add_product' }, { name: 'delete' }]})
+                let {id, name} = item
+                temp_data.push({ID:id, Name:name, actions: [{ name: 'edit' }, { name: 'delete' }]})
               })        
             }
-            this.data_products.products=temp_data;
+            this.data_brands.brands=temp_data;
 
 
           }catch(e){
@@ -144,25 +134,25 @@
       applyFilters(filters){
         this.filters = filters;
 
-        this.loadProductData()
+        this.loadBrandData()
       },
       handlePageChange(page) {
         this.request.urlLoadData = page; 
-        this.loadProductData();
+        this.loadBrandData();
       }
 
       
     },
     created(){
       this.setBreadcrumb(this.breadcrumb)
-      this.loadProductData()
-      this.setTitle('Grocery lists')
+      this.loadBrandData()
+      this.setTitle('Brand list')
     }
   };
   </script>
   
   <style scoped>
-  .groceries {
+  .brands {
     text-align: center;
     margin-top: 20px;
   }

@@ -12,16 +12,37 @@ import GroceryItemCreate from './pages/groceries_items/create.vue';
 import Purchases from './pages/purchases/purchases.vue';
 import LoginPage from './pages/user/login.vue';
 import NavItems from './layouts/components/NavItems.vue';
+import ProductCreate from './pages/products/create.vue'
+import Settings from './pages/settings/settings.vue';
+import Brands from './pages/brands/brands.vue';
+
 //const app = createApp({});
 //app.component('Welcome', Welcome);
 //app.component('Products', Products);
 //https://github.com/themeselection/materio-vuetify-vuejs-laravel-admin-template-free/blob/main/javascript-version/resources/js/plugins/router/routes.js
-
+//ProductCreate//Brands
 const routes = [
     {path:'/products', component:Products, name:'Products', props:{
         breadcrumb:[
             {name:'Home', link:'/'},
-            {name:'Products', link:'/product'}
+            {name:'Products', link:'/products'}
+        ]
+    }},{path:'/products/crate', component:ProductCreate, name:'ProductCreate', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Products', link:'/products'},
+            {name:'Crate', link:'/products/create'}
+        ]
+    }},{path:'/products/edit/:id', component:ProductCreate, name:'ProductEdit', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Products', link:'/products'},
+            {name:'Edit', link:'/products/edit/:id'}
+        ]
+    }},{path:'/brands', component:Brands, name:'Brands', props:{
+        breadcrumb:[
+            {name:'Home', link:'/'},
+            {name:'Brands', link:'/brands'}
         ]
     }},
     {path:'/login', component:LoginPage, name:'Login', props:{
@@ -67,7 +88,7 @@ const routes = [
             {name:'Purchase history', link:'/purchases'}
         ]
     }},
-    {path:'/settings', component:Groceries, name:'Settings', props:{
+    {path:'/settings', component:Settings, name:'Settings', props:{
         breadcrumb:[
             {name:'Home', link:'/'},
             {name:'Settings', link:'/settings'}

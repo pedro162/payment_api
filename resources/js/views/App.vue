@@ -9,7 +9,7 @@
                   <li><router-link @click="toggle" to="/groceries" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-list-alt"></i> Grocery list</router-link></li>
                   <li><router-link @click="toggle" to="/products" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-shopping-basket"></i> Products</router-link></li>
                   <li><router-link @click="toggle" to="/purchases" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-history"></i> Purchase history</router-link></li>
-                  <li><router-link @click="toggle" to="/configuracoes" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-cog"></i> Settings</router-link></li>
+                  <li><router-link @click="toggle" to="/settings" class="block p-2 hover:bg-gray-700"><i class="mr-2 text-2xl fa fa-cog"></i> Settings</router-link></li>
                   <li><span @click="()=>{toggle();logout();}" class="block p-2 hover:bg-gray-700" ><i class="mr-2 text-2xl fa fa-sign-out-alt"></i> Exit</span></li>
               </ul>
           </div>

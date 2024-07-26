@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GroceryListController;
 use App\Http\Controllers\GroceryListItemController;
 use App\Http\Controllers\ProductController;
@@ -18,3 +20,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::resource('products', ProductController::class);
 Route::resource('groceries', GroceryListController::class);
 Route::resource('grocery_items', GroceryListItemController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('brands', BrandController::class);

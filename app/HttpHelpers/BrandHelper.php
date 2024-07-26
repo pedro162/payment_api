@@ -2,17 +2,17 @@
 
 namespace App\HttpHelpers;
 
-use App\Application\Commands\CreateProductCommand;
-use App\Application\Handlers\CreateProductHandler;
-use App\Application\Handlers\InfoProductHandler;
-use App\Application\Services\ProductApplicationService;
-use App\Domain\Product\ValueObjects\ProductId;
-use App\Infrastructure\Persistence\EloquentProductRepository;
-use App\Models\Product as ProductModel;
+use App\Application\Commands\CreateBrandCommand;
+use App\Application\Handlers\CreateBrandHandler;
+use App\Application\Handlers\InfoBrandHandler;
+use App\Application\Services\BrandApplicationService;
+use App\Domain\Brand\ValueObjects\BrandId;
+use App\Infrastructure\Persistence\EloquentBrandRepository;
+use App\Models\Brand as BrandModel;
 use Illuminate\Support\Facades\DB;
 
 
-class ProductHelper extends BaseHelper
+class BrandHelper extends BaseHelper
 {
 
     public function store(array $data)
@@ -21,16 +21,17 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $objHandler = new CreateProductHandler($objRepo);
-            $objProductHandler = new InfoProductHandler($objRepo);
-            $objService = new ProductApplicationService($objHandler, $objProductHandler);
+            $objRepo = new EloquentBrandRepository();
+            $objHandler = new CreateBrandHandler($objRepo);
+            $objBrandHandler = new InfoBrandHandler($objRepo);
+            $objService = new BrandApplicationService($objHandler, $objBrandHandler);
 
-            $command = (new CreateProductCommand())
-                ->productId(0)
-                ->productName($data['name']);
-            $domainProductObject = $objService->createProduct($command);
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId())->first();
+            $command = (new CreateBrandCommand())
+                ->brandId(0)
+                ->brandName($data['name']);
+            $domainBrandObject = $objService->createBrand($command);
+            $response = BrandModel::where('id', '=', (string) $domainBrandObject->getId());
+
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
@@ -58,7 +59,7 @@ class ProductHelper extends BaseHelper
     {
         try {
             DB::beginTransaction();
-            $response = ProductModel::orderBy('id', 'DESC')->paginate(10);
+            $response = BrandModel::orderBy('id', 'DESC')->paginate(10);
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
@@ -90,9 +91,9 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $domainProductObject = $objRepo->findById(new ProductId($id));
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId())->first();
+            $objRepo = new EloquentBrandRepository();
+            $domainBrandObject = $objRepo->findById(new BrandId($id));
+            $response = BrandModel::where('id', '=', (string) $domainBrandObject->getId());
 
             DB::commit();
 
@@ -130,16 +131,16 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $objHandler = new CreateProductHandler($objRepo);
-            $objProductHandler = new InfoProductHandler($objRepo);
-            $objService = new ProductApplicationService($objHandler, $objProductHandler);
+            $objRepo = new EloquentBrandRepository();
+            $objHandler = new CreateBrandHandler($objRepo);
+            $objBrandHandler = new InfoBrandHandler($objRepo);
+            $objService = new BrandApplicationService($objHandler, $objBrandHandler);
 
-            $command = (new CreateProductCommand())
-                ->productId(0)
-                ->productName($data['name']);
-            $domainProductObject = $objService->createProduct($command);
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            $command = (new CreateBrandCommand())
+                ->brandId(0)
+                ->brandName($data['name']);
+            $domainBrandObject = $objService->createBrand($command);
+            $response = BrandModel::where('id', '=', (string) $domainBrandObject->getId());
 
             DB::commit();
             $this->setHttpResponseData($response);
@@ -172,10 +173,10 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
 
-            $objRepo = new EloquentProductRepository();
-            $domainProductObject = $objRepo->findById(new ProductId($id));
+            $objRepo = new EloquentBrandRepository();
+            $domainBrandObject = $objRepo->findById(new BrandId($id));
             //TODO
-            //$response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
+            //$response = BrandModel::where('id', '=', (string) $domainBrandObject->getId());
 
             DB::commit();
             $msg   = 'Bank transaction removed successfully';
