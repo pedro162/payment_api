@@ -153,7 +153,6 @@
   
   <style scoped>
   .purchases {
-    text-align: center;
     margin-top: 20px;
   }
   </style>

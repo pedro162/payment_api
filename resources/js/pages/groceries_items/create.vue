@@ -118,11 +118,11 @@ export default {
             items: [],
             suggestions: [],
             data_products:{
-              headers: ['ID', 'Name', "Total Gross", "Discount", "Total Net"],
+              headers: ['ID', 'Name', "Total Net"],
               products: [
                 
               ],
-              mobile_fields:['ID', 'Name', "Total Gross", "Discount", "Total Net"]
+              mobile_fields:['ID', 'Name', "Total Net"]
             },
             reportFilters:{
               name: { type: 'text', label: 'Filter by Name' },
@@ -222,7 +222,7 @@ export default {
                       created_at,
                      } = item
                     //'ID', 'Name', "Total Gross", "Discount", "Total Net"
-                    temp_data.push({ID:id, Name:name, "Total Gross":total_gros_price, Discount:total_discount_amount, "Total Net":total_net_price, actions: [{ name: 'edit' }, { name: 'add_product' }, { name: 'delete' }]})
+                    temp_data.push({ID:id, Name:name, "Total Net":total_net_price, actions: [{ name: 'edit' }, { name: 'add_product' }, { name: 'delete' }]})
                   })        
                 }
                 this.data_products.products=temp_data;

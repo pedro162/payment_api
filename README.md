@@ -1,66 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Grocery List Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Grocery List application where users can create new shopping lists, add items to the list, delete items, register products, and manage settings. The application is containerized using Docker Compose for easy setup and deployment. The frontend is built with Vue.js within a Laravel application using Vite.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   [Introduction](#introduction)
+-   [Prerequisites](#prerequisites)
+-   [Installation](#installation)
+-   [Configuration](#configuration)
+-   [Running the Application](#running-the-application)
+-   [Screenshots](#screenshots)
+    -   [Create New Shopping List](#create-new-shopping-list)
+    -   [Shopping List Report](#shopping-list-report)
+    -   [Add Items to List](#add-items-to-list)
+    -   [Delete Items](#delete-items)
+    -   [Register Products](#register-products)
+    -   [Settings](#settings)
+-   [Video](#video)
+-   [License](#license)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Introduction
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The Grocery List application helps users manage their shopping lists efficiently. Users can create new lists, add and delete items, register new products, and adjust settings as needed.
 
-## Learning Laravel
+## Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Before you begin, ensure you have Docker and Docker Compose installed on your machine.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   [Docker](https://docs.docker.com/get-docker/)
+-   [Docker Compose](https://docs.docker.com/compose/install/)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
 
-## Laravel Sponsors
+Clone the repository:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/pedro162/grocery_list_app.git
+cd grocery-list
+```
 
-### Premium Partners
+## Configuration
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+No additional configuration is required. The default configuration is suitable for development and testing purposes.
 
-## Contributing
+## Running the Application
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+To run the application using Docker Compose, execute the following command in the project directory:
 
-## Code of Conduct
+```bash
+docker-compose up
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This command will build and start the application containers. The application will be accessible at [http://localhost:9000](http://localhost:9000).
 
-## Security Vulnerabilities
+## Screenshots
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Create New Shopping List
+
+The interface for creating a new shopping list allows users to add a title and start a new list.
+
+![Create New Shopping List](./resources/images/system/create_grocery_list_screen.png)
+
+### Shopping List
+
+The shopping list report screen.
+
+![Shopping List](./resources/images/system/create_grocery_list_screen.png)
+
+### Add Items to List
+
+Users can add items to their shopping lists, specifying the product, quantity, and other details.
+
+![Add Items to List](./resources/images/system/grocery_list_add_items.png)
+
+### Delete Items
+
+Users can delete items from their shopping lists, keeping the list updated with current needs.
+
+### Register Products
+
+The product registration screen allows users to add new products to the database, making them available for use in shopping lists.
+
+![Register Products](./resources/images/system/create_product_screen.png)
+![Register Products](./resources/images/system/grocery_list_mobile.png)
+
+### Settings
+
+The settings screen allows users to customize application preferences and manage their account details.
+
+![Settings](./resources/images/system/settins_screen.png)
+
+## Video
+
+For a detailed walkthrough of the application features, watch the video below:
+
+![Application Walkthrough Video](./resources/images/system/cinnamon-20240728-3.webm)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License
