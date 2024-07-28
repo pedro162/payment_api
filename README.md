@@ -61,11 +61,11 @@ The interface for creating a new shopping list allows users to add a title and s
 
 ![Create New Shopping List](./resources/images/system/create_grocery_list_screen.png)
 
-### Shopping List
+### Shopping List Report
 
 The shopping list report screen.
 
-![Shopping List](./resources/images/system/create_grocery_list_screen.png)
+![Shopping List Report](./resources/images/system/create_grocery_list_screen.png)
 
 ### Add Items to List
 
