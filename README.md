@@ -94,7 +94,7 @@ The settings screen allows users to customize application preferences and manage
 
 For a detailed walkthrough of the application features, watch the video below:
 
-![Application Walkthrough Video](./resources/images/system/cinnamon-20240728-3.webm)
+![Application Walkthrough Video](./resources/images/system/cinnamon-20240728-3.mp4)
 
 ## License
 
