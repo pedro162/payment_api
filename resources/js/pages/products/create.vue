@@ -166,7 +166,7 @@ export default {
                 let response = await fetch(url, options)
                 response = await response.json()
                 let {state, data} = response
-                if(state == true && Number(data?.id) > 0){
+                if(state == true){
                     this.isLoading=false;
                     this.msg_success = "Register successfully"
                     //alert('Register successfully')

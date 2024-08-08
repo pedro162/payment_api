@@ -6,23 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class SystemFile extends Model
 {
     use SoftDeletes, HasFactory;
 
     protected $primaryKey = 'id';
-    protected $table = 'products';
+    protected $table = 'system_files';
     protected $fillable = [
         'id',
-        'name',
-        'brand_id',
-        'category_id',
+        'full_path',
+        'reference_id',
+        'reference',
         'users_create_id',
-        'users_update_id',
+        'users_update_id'
     ];
-
-    public function images()
-    {
-        return $this->hasMany(SystemFile::class, 'reference_id', 'id')->where('reference', '=', 'products');
-    }
 }

@@ -19,14 +19,12 @@ class EloquentProductRepository implements ProductRepositoryInterface
         $productId = (int) $productId;
         if ($productId > 0) {
             //update
-            $product = ModelProduct::where('id', '=', $productId)->first();
-            $product->updated([
+            $result = ModelProduct::where('id', '=', $productId)->first();
+            $result->updated([
                 'name' => $product->getName(),
                 //'users_create_id'
                 //'users_update_id'   
             ]);
-
-            $result = $product;
         } else {
             //create
             $result = ModelProduct::create([

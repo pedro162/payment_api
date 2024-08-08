@@ -9,13 +9,15 @@ use App\Application\Services\ProductApplicationService;
 use App\Domain\Product\ValueObjects\ProductId;
 use App\Infrastructure\Persistence\EloquentProductRepository;
 use App\Models\Product as ProductModel;
+use App\Models\SystemFile as SystemFileModel;
 use Illuminate\Support\Facades\DB;
+use App\Utils\ImageHandler;
 
 
 class ProductHelper extends BaseHelper
 {
 
-    public function store(array $data)
+    public function store(array $data, array $files = [])
     {
         $stCod = 201;
         try {
@@ -59,6 +61,17 @@ class ProductHelper extends BaseHelper
         try {
             DB::beginTransaction();
             $response = ProductModel::orderBy('id', 'DESC')->paginate(10);
+            if ($response) {
+                foreach ($response as $item) {
+                    $images = $item->images;
+                    if ($images) {
+                        foreach ($images as $image) {
+                            $image->base64_content = ImageHandler::loadImageBase64Image($image->full_path);
+                        }
+                    }
+                }
+            }
+
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);
@@ -124,10 +137,11 @@ class ProductHelper extends BaseHelper
         return $this->getHttpDataResponseRequest();
     }
 
-    public function update(string $id, array $data)
+    public function update(string $id, array $data, array $files = [])
     {
         $stCod = 201;
         try {
+
             DB::beginTransaction();
 
             $objRepo = new EloquentProductRepository();
@@ -136,11 +150,29 @@ class ProductHelper extends BaseHelper
             $objService = new ProductApplicationService($objHandler, $objProductHandler);
 
             $command = (new CreateProductCommand())
-                ->productId(0)
+                ->productId($id)
                 ->productName($data['name']);
             $domainProductObject = $objService->createProduct($command);
-            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId());
-
+            $response = ProductModel::where('id', '=', (string) $domainProductObject->getId())->first();
+            $images = $response->images;
+            if ($images) {
+                foreach ($images as $image) {
+                    ImageHandler::deleteImage($image->full_path);
+                    $image->delete();
+                }
+            }
+            if (isset($data['photos']) && count($data['photos']) > 0) {
+                foreach ($data['photos'] as $photo) {
+                    if ($pathImage = ImageHandler::saveBase64Image($photo['url'])) {
+                        SystemFileModel::create([
+                            'full_path' => $pathImage,
+                            'reference_id' => (string) $domainProductObject->getId(),
+                            'reference' => 'products',
+                        ]);
+                    }
+                }
+            }
+            //deleteImage
             DB::commit();
             $this->setHttpResponseData($response);
             $this->setHttpResponseState(true);

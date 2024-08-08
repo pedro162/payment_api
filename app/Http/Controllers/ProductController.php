@@ -45,6 +45,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //dd($request);
         $prodHelper = new ProductHelper();
         $response = $prodHelper->update($id, $request->all());
         $httpResponseCode = $prodHelper->getHttpResponseCode();

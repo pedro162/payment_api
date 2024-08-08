@@ -21,7 +21,7 @@
   
   <script>
 
-  import Report from "../../components/Report.vue"
+  import Report from "../../components/ReportProducts.vue"
   import Filter from '../../components/Filter.vue';
   import Spinner from "../../components/Spinner.vue";
   import Pagination from "../../components/Pagination.vue";

@@ -69,7 +69,7 @@
 
 import { GROCERY_LIST_STORE, GROCERY_LIST_GET_ITEMS, GROCERY_LIST_GET_ONE } from '../../functions/endpoints';
 
-import Report from "../../components/Report.vue"
+import Report from "../../components/ReportProducts.vue"
 import Spinner from "../../components/Spinner.vue";
 import Pagination from "../../components/Pagination.vue";
 

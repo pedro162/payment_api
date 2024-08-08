@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Report from "./Report.vue"
+import Report from "./ReportProducts.vue"
 import Filter from './Filter.vue';
 export default {
   name: 'Products',
