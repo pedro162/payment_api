@@ -25,7 +25,7 @@
     <!-- Mobile View -->
     <div v-else class="space-y-4 rounded-lg shadow-md border border-gray-200 p-4 ">
       <div v-for="(item, index) in items" :key="index" class="bg-white p-4  relative">
-        <div class="flex flex-row items-start">
+        <div class="flex flex-row items-start mt-8">
           
           <div class="flex-shrink-0 mr-4">
             <slot name="image" :item="item"></slot>
@@ -52,9 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-row">
-          <hr class="mt-2" />
-        </div>
+        <hr class="mt-2" />
         
       </div>
     </div>
