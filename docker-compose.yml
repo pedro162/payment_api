@@ -12,7 +12,7 @@ services:
       - .:/var/www/html/payment_api
     #network_mode: "host"
     environment:
-      - UID=${UID}
-      - GID=${GID}
+      UID: ${UID:-1001}
+      GID: ${GID:-1001}
     
 

@@ -67,5 +67,21 @@ RUN a2enmod rewrite
 # Altere a porta de escuta do Apache para 80
 RUN sed -i 's/:80/:80/g' /etc/apache2/ports.conf /etc/apache2/sites-available/*.conf
 
+# Criar um usuário não-root para executar o processo
+RUN useradd -ms /bin/bash appuser && \
+    chown -R appuser:appuser /var/www/html/payment_api
+
+# Copiar o script de entrada para o contêiner
+COPY docker-entrypoint.sh /usr/local/bin/
+
+# Dar permissões ao script de entrada
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Expor a porta 80 para o servidor Apache
+EXPOSE 80
+
+# Mudar para o usuário não-root
+USER appuser
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 # Comando para iniciar o Apache
 CMD ["apache2-foreground"]
