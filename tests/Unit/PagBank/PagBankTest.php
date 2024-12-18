@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\PagBank;
 
 use PHPUnit\Framework\TestCase;
 
-class DomainPersonEntitiesPerson extends TestCase
+class PagBankTest extends TestCase
 {
     /**
      * A basic unit test example.
