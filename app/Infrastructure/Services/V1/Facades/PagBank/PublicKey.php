@@ -4,7 +4,7 @@ namespace App\Infrastructure\Services\V1\Facades\PagBank;
 
 use \GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
-use App\Infrastructure\Services\V1\Interfaces\PagBank\PublicKey as PublicKeyInterface;
+use App\Infrastructure\Services\V1\Interfaces\PublicKey as PublicKeyInterface;
 
 class PublicKey implements PublicKeyInterface
 {

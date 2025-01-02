@@ -30,5 +30,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'pagbank' => [
+        'api_url' => env('PAGBACK_API_SANDBOX_URL'),
+        'api_token' => env('PAGBANC_API_SANDBOX_TOKEN'),
+    ]
 
 ];

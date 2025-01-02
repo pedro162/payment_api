@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Infrastructure\Services\V1\Interfaces\PagBank;
+namespace App\Infrastructure\Services\V1\Interfaces\QRCodePayment;
 
 use \GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
-interface PublicKey
+interface QRCodePaymentAdapter
 {
 
     public function create(array $data = []): ?array;
