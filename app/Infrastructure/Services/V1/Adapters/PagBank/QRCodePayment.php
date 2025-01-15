@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Services\V1\Adapters\PagBank;
 
+use App\Infrastructure\Services\V1\Interfaces\PaymentAdapter\PaymentAdapterInterface;
 use App\Infrastructure\Services\V1\Interfaces\QRCodePayment\QRCodePayment as QRCodePaymentInterface;
-use App\Infrastructure\Services\V1\Interfaces\QRCodePayment\QRCodePaymentAdapter;
 
-class QRCodePayment implements QRCodePaymentAdapter
+class QRCodePayment implements PaymentAdapterInterface
 {
     public function __construct(
         protected QRCodePaymentInterface $adapter
@@ -63,6 +63,7 @@ class QRCodePayment implements QRCodePaymentAdapter
 
             return [
                 'id' => $item['id'],
+                'status' => $item['status'] ?? 'WAITING',
                 'expiration_date' => $item['expiration_date'],
                 'amount' => [
                     'value' => $item['amount']['value'],
@@ -77,7 +78,7 @@ class QRCodePayment implements QRCodePaymentAdapter
             'id' => $data['id'],
             'created_at' => $data['created_at'],
             'reference_id' => $data['reference_id'],
-            'qr_codes' => $qrcodeParsed
+            'charges' => $qrcodeParsed
         ];
     }
 }

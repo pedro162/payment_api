@@ -72,13 +72,21 @@ class QRCodePayment implements QRCodePaymentInterface
         $this->builtDataReference($data);
         $this->builtDataCustomer($data['customer']);
         $this->builtPhoneData($data['customer']['phone'] ?? []);
-        $this->builtQRCodeData($data['qr_codes'] ?? []);
+        $this->builtQRCodeData($data['charges'] ?? []);
         $this->builtAddress($data['address'] ?? []);
+        $this->builtNotificationData($data);
     }
 
     protected function builtDataReference(array $data): self
     {
-        $this->payLoad['reference_id'] = $data['reference_id'] ?? Str::uuid();
+        $this->payLoad['reference_id'] = $data['reference_id'];
+        return $this;
+    }
+
+    protected function builtNotificationData(array $data): self
+    {
+        $url = "";
+        //$this->payLoad['notification_urls'] = $data['notification_urls'] ?? $url;
         return $this;
     }
 
@@ -124,7 +132,7 @@ class QRCodePayment implements QRCodePaymentInterface
         foreach ($data as $item) {
             $qrcode = [
                 "amount" => [
-                    'value' => $data['amount']['value'] ?? 0
+                    'value' => $item['amount']['value'] ?? 0
                 ],
                 'expiration_date' => Carbon::now('America/Sao_Paulo')->addMonth(2)->format('Y-m-d\TH:i:sP')
             ];

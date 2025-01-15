@@ -16,7 +16,7 @@ class QRCodePaymentProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(QRCodePaymentInfraInterface::class, QRCodePaymentInfraFacade::class);
-        $this->app->singleton(QRCodePaymentAdapterInfraInterface::class, QRCodePaymentInfraAdapter::class);
+        //$this->app->singleton(QRCodePaymentAdapterInfraInterface::class, QRCodePaymentInfraAdapter::class);
     }
 
     /**
