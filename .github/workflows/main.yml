@@ -11,7 +11,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root # Senha do root aqui
-          MYSQL_DATABASE: clinida_estetica_testing # Nome do banco de dados
+          MYSQL_DATABASE: payment_api_testing # Nome do banco de dados
         ports:
           - 3306:3306 # Expõe a porta 3306 do container
         options: >-
@@ -68,7 +68,7 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1 # Aqui, usa localhost ou IP do container do serviço MySQL
           DB_PORT: 3306
-          DB_DATABASE: clinida_estetica_testing
+          DB_DATABASE: payment_api_testing
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan migrate --env=testing --force
@@ -78,7 +78,7 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1 # Aqui também
           DB_PORT: 3306
-          DB_DATABASE: clinida_estetica_testing
+          DB_DATABASE: payment_api_testing
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan test
