@@ -1,0 +1,59 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  ECR_REPOSITORY_APP: payment_api
+  ECS_CLUSTER: payment_api
+  ECS_SERVICE: payment_api
+  CONTAINER_NAME_APP: payment_api
+
+jobs:
+  deploy:
+    name: Deploy to AWS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: $AWS_REGION
+
+      - name: Login no Amazon ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+      - name: Construir e enviar as imagens Docker para o ECR
+        run: |
+          IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+
+          # Construir e enviar a imagem do app (Laravel)
+          docker build -t $ECR_REPOSITORY_APP:$IMAGE_TAG -f .docker/Dockerfile .
+          docker tag $ECR_REPOSITORY_APP:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_APP:$IMAGE_TAG
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_APP:$IMAGE_TAG
+
+      - name: Atualizar serviço no ECS
+        run: |
+          # Obter a última definição de tarefa
+          LATEST_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_SERVICE --query taskDefinition | jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy, .tags)')
+
+          # Atualizar as imagens dos containers Laravel e Nginx
+          NEW_TASK_DEF=$(echo "$LATEST_TASK_DEF" | jq --arg IMAGE_APP "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_APP:$IMAGE_TAG" \
+            '.containerDefinitions |= map(if .name == "payment_api" then .image = $IMAGE_APP else . end)')
+
+          # Registrar a nova definição de tarefa
+          NEW_TASK_REVISION=$(aws ecs register-task-definition --cli-input-json "$NEW_TASK_DEF" --query 'taskDefinition.revision' --output text)
+
+          # Atualizar o serviço no ECS
+          aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --task-definition $ECS_SERVICE:$NEW_TASK_REVISION --force-new-deployment
